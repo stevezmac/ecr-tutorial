@@ -2,6 +2,20 @@ sudo: required
 language: python
 services:
   - docker
-
-script
-  - docker build -t foobar .
+env:
+  global:
+  - DOCKER_REPO=stevezmac
+  - EB_REGION="us-east-1"
+  - secure: travisEncryptedAWS_ACCOUNT_ID
+  - secure: travisEncryptedAWS_ACCESS_KEY_ID
+  - secure: travisEncryptedAWS_SECRET_ACCESS_KEY
+before_install:
+- pip install awscli
+- export PATH=$PATH:$HOME/.local/bin
+script:
+- docker build -t $DOCKER_REPO .
+deploy:
+  provider: script
+  script: bash docker_push.sh
+  on:
+    branch: master
