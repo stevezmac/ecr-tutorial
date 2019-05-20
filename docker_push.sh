@@ -28,7 +28,7 @@ aws configure set default.region ${EB_REGION}
 $(aws ecr get-login --no-include-email)
 
 # update latest version
-docker tag "stevezmac/ecr-tutorial:1:0" #${SOURCE_IMAGE} ${TARGET_IMAGE_LATEST}
+docker tag stevezmac/ecr-tutorial:1:0 ${TARGET_IMAGE_LATEST}  #${SOURCE_IMAGE} ${TARGET_IMAGE_LATEST}
 docker push ${TARGET_IMAGE_LATEST}
 
 # push new version
